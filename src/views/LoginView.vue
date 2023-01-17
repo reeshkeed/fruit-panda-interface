@@ -1,18 +1,52 @@
+<script>
+import { mapActions } from 'pinia';
+import { useAuthStore } from '../stores/auth.store';
+
+export default {
+  data() {
+    return {
+      credentials: {
+        username: 'gdaloso',
+        password: 'qwer123',
+      },
+    };
+  },
+  methods: {
+    ...mapActions(useAuthStore, ['getToken']),
+
+    login() {
+      this.getToken(this.credentials);
+    },
+  },
+};
+</script>
+
 <template>
   <div
     class="login bg-gradient-to-r from-dark-100 to-dark-500 h-screen w-screen grid place-content-center"
   >
-    <div class="login-card w-80 flex flex-col items-center">
+    <form
+      @submit.prevent="login"
+      class="login-card w-80 flex flex-col items-center"
+    >
       <img alt="Girish Daloso" class="h-32 w-32" src="@/assets/logo.svg" />
       <h1 class="mb-5 text-white font-thin text-2xl font-sans">Fruit Panda</h1>
 
-      <input class="input" placeholder="Username" />
-      <input class="input" placeholder="Password" />
+      <input
+        class="input"
+        v-model="credentials.username"
+        placeholder="Username"
+      />
+      <input
+        class="input"
+        v-model="credentials.password"
+        placeholder="Password"
+      />
 
       <button class="bg-dark-100 text-white rounded-md w-full p-3">
         Login
       </button>
-    </div>
+    </form>
   </div>
 </template>
 
