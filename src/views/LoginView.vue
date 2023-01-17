@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import { useAuthStore } from '../stores/auth.store';
 import BaseButton from '../components/base/BaseButton.vue';
 
@@ -17,6 +17,14 @@ export default {
 
   components: { BaseButton },
 
+  computed: {
+    ...mapState(useAuthStore, ['token']),
+  },
+
+  mounted() {
+    console.log(this.token);
+  },
+
   methods: {
     ...mapActions(useAuthStore, ['getToken']),
     async login() {
@@ -25,6 +33,8 @@ export default {
       await this.getToken(this.credentials);
 
       this.isLoading = false;
+
+      this.$router.push('/');
     },
   },
 };

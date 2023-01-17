@@ -8,15 +8,17 @@ export const useAuthStore = defineStore('auth', {
     };
   },
 
+  getters: {},
+
   actions: {
     async getToken(payload) {
-      try {
-        const response = await loginUser(payload);
+      const response = await loginUser(payload);
 
-        this.token = response.token;
-      } catch (error) {
-        return error;
+      if (response.status === 200) {
+        this.token = response.data.token;
       }
     },
   },
+
+  persist: true,
 });
