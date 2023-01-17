@@ -18,6 +18,10 @@ export const useAuthStore = defineStore('auth', {
         this.token = response.data.token;
       }
     },
+
+    logoutUser() {
+      this.token = null;
+    },
   },
 
   persist: true,

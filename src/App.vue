@@ -1,11 +1,20 @@
-<script setup>
-import { RouterView } from 'vue-router';
+<script>
 import NavbarMenu from './components/layout/NavbarMenu.vue';
+import { useAuthStore } from './stores/auth.store';
+import { mapState } from 'pinia';
+
+export default {
+  components: { NavbarMenu },
+
+  computed: {
+    ...mapState(useAuthStore, ['token']),
+  },
+};
 </script>
 
 <template>
   <div class="app">
-    <NavbarMenu />
+    <NavbarMenu v-if="token" />
 
     <RouterView />
   </div>

@@ -56,5 +56,5 @@ const api = (axios) => {
   };
 };
 
-// Initialise the api function and pass axiosInstance to it
+// Initialize the api function and pass axiosInstance to it
 export default api(axiosInstance);
