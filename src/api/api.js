@@ -8,12 +8,51 @@ const axiosParams = {
 const axiosInstance = axios.create(axiosParams);
 
 const api = (axios) => {
-  // Wrapper functions around axios
+  /**
+   * Wrapper functions around axios
+   * @success return response data on success
+   * @error return error response
+   */
   return {
-    get: (url, config) => axios.get(url, config),
-    post: (url, body, config) => axios.post(url, body, config),
-    patch: (url, body, config) => axios.patch(url, body, config),
-    delete: (url, config) => axios.delete(url, config),
+    get: (url, config) =>
+      axios
+        .get(url, config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error.response.data;
+        }),
+
+    post: (url, body, config) =>
+      axios
+        .post(url, body, config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error.response.data;
+        }),
+
+    patch: (url, body, config) =>
+      axios
+        .patch(url, body, config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error.response.data;
+        }),
+
+    delete: (url, config) =>
+      axios
+        .delete(url, config)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error.response.data;
+        }),
   };
 };
 

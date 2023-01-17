@@ -4,6 +4,6 @@ const URLS = {
   loginUrl: 'login',
 };
 
-export const loginUser = (payload) => {
-  return api.post(URLS.loginUrl, payload);
+export const loginUser = async (payload) => {
+  return await api.post(URLS.loginUrl, payload);
 };
