@@ -1,6 +1,7 @@
 <script>
 import { mapActions } from 'pinia';
 import { useAuthStore } from '../stores/auth.store';
+import BaseButton from '../components/base/BaseButton.vue';
 
 export default {
   data() {
@@ -9,13 +10,21 @@ export default {
         username: 'gdaloso',
         password: 'qwer123',
       },
+
+      isLoading: false,
     };
   },
+
+  components: { BaseButton },
+
   methods: {
     ...mapActions(useAuthStore, ['getToken']),
+    async login() {
+      this.isLoading = true;
 
-    login() {
-      this.getToken(this.credentials);
+      await this.getToken(this.credentials);
+
+      this.isLoading = false;
     },
   },
 };
@@ -40,12 +49,11 @@ export default {
       <input
         class="input"
         v-model="credentials.password"
+        type="password"
         placeholder="Password"
       />
 
-      <button class="bg-dark-100 text-white rounded-md w-full p-3">
-        Login
-      </button>
+      <BaseButton color="text-white" :loading="isLoading">Login</BaseButton>
     </form>
   </div>
 </template>
