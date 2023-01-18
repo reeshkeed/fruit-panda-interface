@@ -2,8 +2,11 @@
 import { mapActions, mapState } from 'pinia';
 import { useAuthStore } from '../stores/auth.store';
 import BaseButton from '../components/base/BaseButton.vue';
+import ToastMessage from '../components/common/ToastMessage.vue';
 
 export default {
+  components: { BaseButton, ToastMessage },
+
   data() {
     return {
       credentials: {
@@ -12,29 +15,35 @@ export default {
       },
 
       isLoading: false,
+      isError: false,
+      errorMessage: '',
     };
   },
-
-  components: { BaseButton },
 
   computed: {
     ...mapState(useAuthStore, ['token']),
   },
 
-  mounted() {
-    console.log(this.token);
-  },
-
   methods: {
     ...mapActions(useAuthStore, ['getToken']),
+
     async login() {
       this.isLoading = true;
 
-      await this.getToken(this.credentials);
+      const res = await this.getToken(this.credentials);
+
+      // If res return value set error toggler and message
+      if (res) {
+        this.isError = true;
+        this.errorMessage = res;
+      }
+
+      // If token success push to home page
+      if (this.token) {
+        this.$router.push('/');
+      }
 
       this.isLoading = false;
-
-      this.$router.push('/');
     },
   },
 };
@@ -44,6 +53,12 @@ export default {
   <div
     class="login bg-gradient-to-r from-dark-100 to-dark-500 h-screen w-screen grid place-content-center"
   >
+    <!-- Toast Message -->
+    <ToastMessage v-model:animate="isError" color="red">{{
+      errorMessage
+    }}</ToastMessage>
+
+    <!-- Login input form -->
     <form
       @submit.prevent="login"
       class="login-card w-80 flex flex-col items-center"

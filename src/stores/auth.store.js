@@ -17,6 +17,14 @@ export const useAuthStore = defineStore('auth', {
       if (response.status === 200) {
         this.token = response.data.token;
       }
+
+      /**
+       * If status is not equal to 200
+       * return error message to display
+       */
+      if (response.status !== 200) {
+        return response.error.message;
+      }
     },
 
     logoutUser() {
