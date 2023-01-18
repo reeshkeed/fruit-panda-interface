@@ -8,7 +8,7 @@ export default {
      */
     variant: {
       type: String,
-      default: 'bg-dark-100',
+      default: 'dark',
     },
 
     /**
@@ -32,7 +32,9 @@ export default {
 </script>
 
 <template>
-  <button :class="`btn ${variant} ${color} rounded-md w-full p-3`">
+  <button
+    :class="`btn bg-${variant}-500 ${color} hover:bg-${variant}-600 active:bg-${variant}-400 rounded-md w-full p-3`"
+  >
     <slot v-if="loading" name="loader">
       <span class="loader"></span>
     </slot>

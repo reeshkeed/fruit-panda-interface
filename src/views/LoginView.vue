@@ -78,7 +78,9 @@ export default {
         placeholder="Password"
       />
 
-      <BaseButton color="text-white" :loading="isLoading">Login</BaseButton>
+      <BaseButton color="text-white" variant="dark" :loading="isLoading"
+        >Login</BaseButton
+      >
     </form>
   </div>
 </template>
